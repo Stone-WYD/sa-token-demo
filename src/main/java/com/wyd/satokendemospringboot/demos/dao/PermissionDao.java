@@ -9,7 +9,7 @@ import java.util.List;
  * 不同角色对不同业务有默认的权限，如果对某个账户设置了权限，则按照账户权限为准(Permission)表数据库访问层
  *
  * @author makejava
- * @since 2023-05-22 17:48:47
+ * @since 2023-05-29 18:19:59
  */
 public interface PermissionDao {
 
@@ -28,7 +28,7 @@ public interface PermissionDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<Permission> queryAllByLimit(Permission permission, @Param("pageable") Pageable pageable);
+    List<Permission> queryAllByLimit(@Param("permission") Permission permission, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
@@ -36,7 +36,7 @@ public interface PermissionDao {
      * @param permission 查询条件
      * @return 总行数
      */
-    long count(Permission permission);
+    long count(@Param("permission") Permission permission);
 
     /**
      * 新增数据
@@ -71,13 +71,6 @@ public interface PermissionDao {
      */
     int update(Permission permission);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Long id);
 
 }
 

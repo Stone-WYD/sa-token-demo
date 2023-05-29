@@ -15,8 +15,8 @@ class SaTokenDemoSpringbootApplicationTests {
 
     @Test
     void contextLoads() {
-        MyUser myUser = myUserService.queryById(1L);
-        System.out.println(myUser);
+        MyUser myUser = myUserService.queryById(4L);
+        System.out.println(myUser==null);
     }
 
 }

@@ -69,14 +69,4 @@ public class RoleServiceImpl implements RoleService {
         return this.queryById(role.getId());
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(Long id) {
-        return this.roleDao.deleteById(id) > 0;
-    }
 }

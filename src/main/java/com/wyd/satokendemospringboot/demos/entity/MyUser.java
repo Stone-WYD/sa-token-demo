@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (MyUser)实体类
  *
  * @author makejava
- * @since 2023-05-17 14:26:22
+ * @since 2023-05-29 15:50:40
  */
 public class MyUser implements Serializable {
-    private static final long serialVersionUID = 226374320578816209L;
+    private static final long serialVersionUID = -23917536641675099L;
     /**
      * 用户id
      */
@@ -26,6 +26,10 @@ public class MyUser implements Serializable {
      * 年龄
      */
     private Integer age;
+    /**
+     * 角色id
+     */
+    private Long roleId;
     /**
      * 可用标识符
      */
@@ -64,6 +68,14 @@ public class MyUser implements Serializable {
         this.age = age;
     }
 
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
     public Integer getEnable() {
         return enable;
     }
@@ -72,15 +84,5 @@ public class MyUser implements Serializable {
         this.enable = enable;
     }
 
-    @Override
-    public String toString() {
-        return "MyUser{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", age=" + age +
-                ", enable=" + enable +
-                '}';
-    }
 }
 

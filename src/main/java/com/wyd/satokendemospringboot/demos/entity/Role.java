@@ -26,7 +26,7 @@ public class Role implements Serializable {
     /**
      * 角色创建者id
      */
-    private Long roleId;
+    private Long roleCreatorId;
     /**
      * 角色创建时间
      */
@@ -57,12 +57,12 @@ public class Role implements Serializable {
         this.roleCreator = roleCreator;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Long getRoleCreatorId() {
+        return roleCreatorId;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRoleCreatorId(Long roleCreatorId) {
+        this.roleCreatorId = roleCreatorId;
     }
 
     public Date getRoleCreateTime() {

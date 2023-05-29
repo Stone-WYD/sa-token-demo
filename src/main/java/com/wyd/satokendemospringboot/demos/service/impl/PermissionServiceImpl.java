@@ -1,20 +1,27 @@
 package com.wyd.satokendemospringboot.demos.service.impl;
 
 import com.wyd.satokendemospringboot.demos.common.ex.DBException;
+import com.wyd.satokendemospringboot.demos.dao.MyUserDao;
+import com.wyd.satokendemospringboot.demos.dao.RoleDao;
+import com.wyd.satokendemospringboot.demos.entity.MyUser;
 import com.wyd.satokendemospringboot.demos.entity.Permission;
 import com.wyd.satokendemospringboot.demos.dao.PermissionDao;
+import com.wyd.satokendemospringboot.demos.entity.Role;
 import com.wyd.satokendemospringboot.demos.entity.po.PermissionPo;
 import com.wyd.satokendemospringboot.demos.myenum.OpsEnum;
 import com.wyd.satokendemospringboot.demos.service.PermissionService;
+import com.wyd.satokendemospringboot.demos.util.Constants;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.ValidationUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 不同角色对不同业务有默认的权限，如果对某个账户设置了权限，则按照账户权限为准(Permission)表服务实现类
@@ -26,6 +33,12 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
     @Resource
     private PermissionDao permissionDao;
+
+    @Resource
+    private MyUserDao myUserDao;
+
+    @Resource
+    private RoleDao roleDao;
 
     /**
      * 通过ID查询单条数据
@@ -75,16 +88,53 @@ public class PermissionServiceImpl implements PermissionService {
         return this.queryById(permission.getId());
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
+
     @Override
-    public boolean deleteById(Long id) {
-        return this.permissionDao.deleteById(id) > 0;
+    public List<String> queryAllPermission(Long userId) {
+        // 查询账号所有权限信息
+        List<String> permission = new ArrayList<>();
+        // 查找用户角色
+        MyUser myUser = myUserDao.queryById(userId);
+        if (myUser == null) throw new DBException("用户不存在！");
+        Long roleId = myUser.getRoleId();
+
+        // 查询数据库
+        Permission query = new Permission();
+        query.setUserId(userId);
+        List<Permission> permissionList;
+        permissionList = permissionDao.queryAllByLimit(query, null);
+        // 如果没有权限信息，则该用户为普通用户，返回默认权限
+        if (CollectionUtils.isEmpty(permissionList) && roleId == Constants.USER_ROLE_ID ) {
+            permission.add(Constants.USER_PERMISSION);
+            return permission;
+        }else {
+            query.setRoleId(roleId);
+            query.setUserId(null);
+            permissionList = permissionDao.queryAllByLimit(query, null);
+        }
+        if (CollectionUtils.isEmpty(permissionList)) throw new DBException("角色没有对应的权限信息，roleId为：" + roleId );
+        // 获取结果
+        for (Permission p : permissionList) {
+            PermissionPo po = permissionToPo(p);
+            List<String> ops = po.getOps();
+            String business = po.getBusiness();
+            for (String op : ops) {
+                permission.add(business + "." + op );
+            }
+        }
+        // 去重
+        permission = permission.stream().distinct().collect(Collectors.toList());
+        return permission;
     }
+
+    @Override
+    public String queryRole(Long userId) {
+        MyUser myUser = myUserDao.queryById(userId);
+        if (myUser == null) throw new DBException("用户不存在！");
+        Role role = roleDao.queryById(myUser.getRoleId());
+        return role.getRoleName();
+    }
+
 
     private PermissionPo permissionToPo(Permission permission){
         String permissions = permission.getPermissions();

@@ -4,6 +4,8 @@ import com.wyd.satokendemospringboot.demos.entity.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * 不同角色对不同业务有默认的权限，如果对某个账户设置了权限，则按照账户权限为准(Permission)表服务接口
  *
@@ -45,12 +47,9 @@ public interface PermissionService {
      */
     Permission update(Permission permission);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Long id);
+
+    List<String> queryAllPermission(Long userId);
+
+    String queryRole(Long userId);
 
 }

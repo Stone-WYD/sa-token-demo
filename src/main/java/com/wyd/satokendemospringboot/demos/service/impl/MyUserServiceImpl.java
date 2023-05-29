@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (MyUser)表服务实现类
  *
  * @author makejava
- * @since 2023-05-17 14:26:32
+ * @since 2023-05-29 15:50:55
  */
 @Service("myUserService")
 public class MyUserServiceImpl implements MyUserService {
@@ -69,14 +69,4 @@ public class MyUserServiceImpl implements MyUserService {
         return this.queryById(myUser.getId());
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(Long id) {
-        return this.myUserDao.deleteById(id) > 0;
-    }
 }

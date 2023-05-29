@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (MyUser)表服务接口
  *
  * @author makejava
- * @since 2023-05-17 14:26:30
+ * @since 2023-05-29 15:50:54
  */
 public interface MyUserService {
 
@@ -44,13 +44,5 @@ public interface MyUserService {
      * @return 实例对象
      */
     MyUser update(MyUser myUser);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Long id);
 
 }

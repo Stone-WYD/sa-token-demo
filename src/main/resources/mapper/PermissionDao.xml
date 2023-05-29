@@ -4,7 +4,7 @@
 
     <resultMap type="com.wyd.satokendemospringboot.demos.entity.Permission" id="PermissionMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="business" column="business" jdbcType="VARCHAR"/>
         <result property="permissions" column="permissions" jdbcType="VARCHAR"/>
@@ -30,41 +30,43 @@
           id, role_id, user_id, business, permissions, create_time, create_id, create_name, update_time, update_id, update_name
         from permission
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="permission.id != null">
+                and id = #{permission.id}
             </if>
-            <if test="roleId != null and roleId != ''">
-                and role_id = #{roleId}
+            <if test="permission.roleId != null">
+                and role_id = #{permission.roleId}
             </if>
-            <if test="userId != null">
-                and user_id = #{userId}
+            <if test="permission.userId != null">
+                and user_id = #{permission.userId}
             </if>
-            <if test="business != null and business != ''">
-                and business = #{business}
+            <if test="permission.business != null and permission.business != ''">
+                and business = #{permission.business}
             </if>
-            <if test="permissions != null and permissions != ''">
-                and permissions = #{permissions}
+            <if test="permission.permissions != null and permission.permissions != ''">
+                and permissions = #{permission.permissions}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="permission.createTime != null">
+                and create_time = #{permission.createTime}
             </if>
-            <if test="createId != null">
-                and create_id = #{createId}
+            <if test="permission.createId != null">
+                and create_id = #{permission.createId}
             </if>
-            <if test="createName != null and createName != ''">
-                and create_name = #{createName}
+            <if test="permission.createName != null and permission.createName != ''">
+                and create_name = #{permission.createName}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="permission.updateTime != null">
+                and update_time = #{permission.updateTime}
             </if>
-            <if test="updateId != null">
-                and update_id = #{updateId}
+            <if test="permission.updateId != null">
+                and update_id = #{permission.updateId}
             </if>
-            <if test="updateName != null and updateName != ''">
-                and update_name = #{updateName}
+            <if test="permission.updateName != null and permission.updateName != ''">
+                and update_name = #{permission.updateName}
             </if>
         </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+        <if test="pageable!=null">
+            limit #{pageable.offset}, #{pageable.pageSize}
+        </if>
     </select>
 
     <!--统计总行数-->
@@ -72,38 +74,38 @@
         select count(1)
         from permission
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="permission.id != null">
+                and id = #{permission.id}
             </if>
-            <if test="roleId != null and roleId != ''">
-                and role_id = #{roleId}
+            <if test="permission.roleId != null">
+                and role_id = #{permission.roleId}
             </if>
-            <if test="userId != null">
-                and user_id = #{userId}
+            <if test="permission.userId != null">
+                and user_id = #{permission.userId}
             </if>
-            <if test="business != null and business != ''">
-                and business = #{business}
+            <if test="permission.business != null and business != ''">
+                and business = #{permission.business}
             </if>
-            <if test="permissions != null and permissions != ''">
-                and permissions = #{permissions}
+            <if test="permission.permissions != null and permissions != ''">
+                and permissions = #{permission.permissions}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="permission.createTime != null">
+                and create_time = #{permission.createTime}
             </if>
-            <if test="createId != null">
-                and create_id = #{createId}
+            <if test="permission.createId != null">
+                and create_id = #{permission.createId}
             </if>
-            <if test="createName != null and createName != ''">
-                and create_name = #{createName}
+            <if test="permission.createName != null and createName != ''">
+                and create_name = #{permission.createName}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="permission.updateTime != null">
+                and update_time = #{permission.updateTime}
             </if>
-            <if test="updateId != null">
-                and update_id = #{updateId}
+            <if test="permission.updateId != null">
+                and update_id = #{permission.updateId}
             </if>
-            <if test="updateName != null and updateName != ''">
-                and update_name = #{updateName}
+            <if test="permission.updateName != null and updateName != ''">
+                and update_name = #{permission.updateName}
             </if>
         </where>
     </select>
@@ -128,24 +130,13 @@
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.roleId}, #{entity.userId}, #{entity.business}, #{entity.permissions}, #{entity.createTime}, #{entity.createId}, #{entity.createName}, #{entity.updateTime}, #{entity.updateId}, #{entity.updateName})
         </foreach>
-        on duplicate key update
-        role_id = values(role_id),
-        user_id = values(user_id),
-        business = values(business),
-        permissions = values(permissions),
-        create_time = values(create_time),
-        create_id = values(create_id),
-        create_name = values(create_name),
-        update_time = values(update_time),
-        update_id = values(update_id),
-        update_name = values(update_name)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update permission
         <set>
-            <if test="roleId != null and roleId != ''">
+            <if test="roleId != null">
                 role_id = #{roleId},
             </if>
             <if test="userId != null">
@@ -178,11 +169,6 @@
         </set>
         where id = #{id}
     </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from permission where id = #{id}
-    </delete>
 
 </mapper>
 

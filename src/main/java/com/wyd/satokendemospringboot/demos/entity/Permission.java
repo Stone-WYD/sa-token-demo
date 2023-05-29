@@ -18,7 +18,7 @@ public class Permission implements Serializable {
     /**
      * 角色id
      */
-    private String roleId;
+    private Long roleId;
     /**
      * 用户id
      */
@@ -65,11 +65,11 @@ public class Permission implements Serializable {
         this.id = id;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

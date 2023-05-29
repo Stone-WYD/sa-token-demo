@@ -9,7 +9,7 @@ import java.util.List;
  * (MyUser)表数据库访问层
  *
  * @author makejava
- * @since 2023-05-17 14:26:21
+ * @since 2023-05-29 18:18:43
  */
 public interface MyUserDao {
 
@@ -28,7 +28,7 @@ public interface MyUserDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<MyUser> queryAllByLimit(MyUser myUser, @Param("pageable") Pageable pageable);
+    List<MyUser> queryAllByLimit(@Param("myUser") MyUser myUser, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
@@ -36,7 +36,7 @@ public interface MyUserDao {
      * @param myUser 查询条件
      * @return 总行数
      */
-    long count(MyUser myUser);
+    long count(@Param("myUser") MyUser myUser);
 
     /**
      * 新增数据
@@ -71,15 +71,6 @@ public interface MyUserDao {
      */
     int update(MyUser myUser);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Long id);
-
-    MyUser queryByNameAndPassword(@Param("userName")String userName,@Param("password")String password);
 
 }
 

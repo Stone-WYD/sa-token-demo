@@ -15,7 +15,7 @@ public class PermissionPo {
 
     private String business;
 
-    private String roleId;
+    private Long roleId;
 
     private List<String> ops;
 }

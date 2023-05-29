@@ -9,7 +9,7 @@ import java.util.List;
  * (Role)表数据库访问层
  *
  * @author makejava
- * @since 2023-05-22 17:49:36
+ * @since 2023-05-29 18:20:41
  */
 public interface RoleDao {
 
@@ -28,7 +28,7 @@ public interface RoleDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<Role> queryAllByLimit(Role role, @Param("pageable") Pageable pageable);
+    List<Role> queryAllByLimit(@Param("role") Role role, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
@@ -36,7 +36,7 @@ public interface RoleDao {
      * @param role 查询条件
      * @return 总行数
      */
-    long count(Role role);
+    long count(@Param("role") Role role);
 
     /**
      * 新增数据
@@ -71,13 +71,6 @@ public interface RoleDao {
      */
     int update(Role role);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Long id);
 
 }
 
