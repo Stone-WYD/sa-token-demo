@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyd.satokendemospringboot.demos.dao.RoleDao">
+
+    <resultMap type="com.wyd.satokendemospringboot.demos.entity.Role" id="RoleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleCreator" column="role_creator" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="roleCreateTime" column="role_create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMap">
+        select
+          id, role_name, role_creator, role_id, role_create_time
+        from role
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select
+          id, role_name, role_creator, role_id, role_create_time
+        from role
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+            <if test="roleCreator != null and roleCreator != ''">
+                and role_creator = #{roleCreator}
+            </if>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+            <if test="roleCreateTime != null">
+                and role_create_time = #{roleCreateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from role
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+            <if test="roleCreator != null and roleCreator != ''">
+                and role_creator = #{roleCreator}
+            </if>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+            <if test="roleCreateTime != null">
+                and role_create_time = #{roleCreateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into role(role_name, role_creator, role_id, role_create_time)
+        values (#{roleName}, #{roleCreator}, #{roleId}, #{roleCreateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into role(role_name, role_creator, role_id, role_create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.roleName}, #{entity.roleCreator}, #{entity.roleId}, #{entity.roleCreateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into role(role_name, role_creator, role_id, role_create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.roleName}, #{entity.roleCreator}, #{entity.roleId}, #{entity.roleCreateTime})
+        </foreach>
+        on duplicate key update
+        role_name = values(role_name),
+        role_creator = values(role_creator),
+        role_id = values(role_id),
+        role_create_time = values(role_create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update role
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName},
+            </if>
+            <if test="roleCreator != null and roleCreator != ''">
+                role_creator = #{roleCreator},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="roleCreateTime != null">
+                role_create_time = #{roleCreateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from role where id = #{id}
+    </delete>
+
+</mapper>
+
