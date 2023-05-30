@@ -17,13 +17,13 @@ public class PermissionConfig implements StpInterface {
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return permissionService.queryAllPermission(((Long) loginId));
+        return permissionService.queryAllPermission((Long.valueOf((String) loginId) ));
     }
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         // 此处业务设计：每个用户只会有一种角色
-        String role = permissionService.queryRole((Long) loginId);
+        String role = permissionService.queryRole((Long.valueOf((String) loginId)) );
         List<String> roleList = new ArrayList<>();
         roleList.add(role);
         return roleList;

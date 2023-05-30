@@ -38,10 +38,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 登录成功
         StpUtil.login(myUser.getId());
-        // 前后端分离情况下，后端没法返回Cookie给前端
-        MyResult myResult = new MyResult();
-        myResult.setData(StpUtil.getTokenInfo());
-        return MyResultUtil.getTrueResult(myResult);
+        return MyResultUtil.getTrueResult(new MyResult<>());
     }
 
     @Override

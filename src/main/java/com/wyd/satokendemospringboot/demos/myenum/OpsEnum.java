@@ -6,7 +6,7 @@ public enum OpsEnum {
     READ("r","read"),
     UPDATE("u", "update"),
     DELETE("d", "delete"),
-    ALL("all", "*");
+    ALL("*", "*");
 
     private String code;
 

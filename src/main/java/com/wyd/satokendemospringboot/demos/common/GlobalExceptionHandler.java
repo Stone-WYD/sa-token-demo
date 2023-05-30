@@ -1,6 +1,8 @@
 package com.wyd.satokendemospringboot.demos.common;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import com.wyd.satokendemospringboot.demos.common.ex.DBException;
 import com.wyd.satokendemospringboot.demos.common.result.MyResult;
 import com.wyd.satokendemospringboot.demos.common.result.MyResultStatusCode;
@@ -23,6 +25,20 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    // 拦截：缺少权限异常
+    @ExceptionHandler(NotPermissionException.class)
+    public MyResult handlerException(NotPermissionException e) {
+        e.printStackTrace();
+        return MyResultUtil.getBussinessErrorResult("缺少权限：" + e.getPermission());
+    }
+
+    // 拦截：缺少角色异常
+    @ExceptionHandler(NotRoleException.class)
+    public MyResult handlerException(NotRoleException e) {
+        e.printStackTrace();
+        return MyResultUtil.getBussinessErrorResult("缺少角色：" + e.getRole());
+    }
+
     @ExceptionHandler(DBException.class)
     public MyResult onDBException(DBException dbe){
         // 异常信息输出
@@ -38,10 +54,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     public MyResult onNotLoginException(NotLoginException nle){
         // 异常信息输出
-        log.error(nle.getMessage());
+        nle.printStackTrace();
 
         // 判断场景值，定制化异常信息
-        String message = "";
+        String message;
         if(nle.getType().equals(NotLoginException.NOT_TOKEN)) {
             message = "未提供token";
         }
@@ -60,14 +76,14 @@ public class GlobalExceptionHandler {
         else {
             message = "当前会话未登录";
         }
-        return new MyResult(null, Integer.valueOf(nle.getType()), message);
+        return new MyResult(null, Integer.parseInt(nle.getType()), message);
     }
 
     // 校验异常处理
     @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
     public MyResult onValidateException(Exception ve){
         // 异常信息输出到日志
-        log.error(ve.getMessage());
+        ve.printStackTrace();
 
         MyResult myResult = new MyResult();
         // 获取校验结果
@@ -77,7 +93,9 @@ public class GlobalExceptionHandler {
         else if (ve instanceof BindException) bindingResult = ((BindException) ve).getBindingResult();
         // 获取校验错误的信息
         Map<String, String> errorMap = new HashMap<>();
-        bindingResult.getFieldErrors().forEach(fe->errorMap.put(fe.getField(), fe.getDefaultMessage()));
+        if (bindingResult != null) {
+            bindingResult.getFieldErrors().forEach(fe->errorMap.put(fe.getField(), fe.getDefaultMessage()));
+        }
         // 将错误信息封装成Result后返回
         myResult.setCode(MyResultStatusCode.REQUEST_AUTH_FAILED.getCode());
         myResult.setMessage(MyResultStatusCode.REQUEST_AUTH_FAILED.getName());
@@ -89,7 +107,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public MyResult onException(Exception e){
         // 将异常打印出来
-        log.error(e.getMessage());
+        e.printStackTrace();
 
         // 将异常封装成result返回给前端
         MyResult myResult = new MyResult();

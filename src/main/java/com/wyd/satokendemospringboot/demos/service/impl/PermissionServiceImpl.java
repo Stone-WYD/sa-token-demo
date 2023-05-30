@@ -103,11 +103,8 @@ public class PermissionServiceImpl implements PermissionService {
         query.setUserId(userId);
         List<Permission> permissionList;
         permissionList = permissionDao.queryAllByLimit(query, null);
-        // 如果没有权限信息，则该用户为普通用户，返回默认权限
-        if (CollectionUtils.isEmpty(permissionList) && roleId == Constants.USER_ROLE_ID ) {
-            permission.add(Constants.USER_PERMISSION);
-            return permission;
-        }else {
+        // 如果没有权限信息，则根据角色id查询权限
+        if (CollectionUtils.isEmpty(permissionList))  {
             query.setRoleId(roleId);
             query.setUserId(null);
             permissionList = permissionDao.queryAllByLimit(query, null);

@@ -2,9 +2,10 @@ package com.wyd.satokendemospringboot.demos.util;
 
 public interface Constants {
 
-    // 普通用户默认权限
-    static final String USER_PERMISSION = "user.*";
+    // 写文章权限
+    String WRITE_ARTICLE = "article.create";
 
-    // 普通用户默认角色id
-    static final Long USER_ROLE_ID = 0L;
+    // 商品管理员
+    String GOODS_ADMIN = "under_admin";
+    String ADMIN = "admin";
 }
