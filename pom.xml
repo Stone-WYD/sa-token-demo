@@ -79,6 +79,17 @@
             <version>2.0.0.RELEASE</version>
         </dependency>
 
+        <!-- caffeine 缓存使用 -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+        <!-- Spring中 @Cacheable 相关注解 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
         <!-- 单元测试框架 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

@@ -1,27 +1,28 @@
 package com.wyd.satokendemospringboot.demos.config;
 
-import com.wyd.satokendemospringboot.demos.entity.Permission;
-import com.wyd.satokendemospringboot.demos.entity.po.PermissionPo;
-import com.wyd.satokendemospringboot.demos.service.PermissionService;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class MyConfig {
 
-    @Resource
-    private PermissionService permissionService;
-
-
-    @Bean("permissionMap")
-    public Map<String, List<PermissionPo>> getPermissionMap(){
-        Map<String, List<PermissionPo>> permissionMap = new ConcurrentHashMap<>();
-
-        return permissionMap;
+    @Bean("caffeineCacheManager")
+    public CacheManager cacheManager(){
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.setCaffeine(Caffeine.newBuilder()
+                // 写入后过期时间
+                .expireAfterWrite(5, TimeUnit.MINUTES)
+                // 初始化缓存空间大小
+                .initialCapacity(100)
+                // 最大的缓存条数
+                .maximumSize(200)
+        );
+        return cacheManager;
     }
 }
