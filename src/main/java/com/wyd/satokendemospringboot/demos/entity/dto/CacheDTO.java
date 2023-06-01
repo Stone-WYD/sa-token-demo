@@ -20,6 +20,6 @@ public class CacheDTO {
     private String password;
 
     @ApiModelProperty(notes = "缓存更新时间", name = "updateTime")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone ="GMT+8")
     private Date updateTime;
 }

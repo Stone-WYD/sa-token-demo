@@ -1,11 +1,9 @@
 package com.wyd.satokendemospringboot.demos.service.impl;
 
 import com.wyd.satokendemospringboot.demos.common.result.MyResult;
-import com.wyd.satokendemospringboot.demos.common.result.MyResultUtil;
 import com.wyd.satokendemospringboot.demos.dao.MyUserDao;
 import com.wyd.satokendemospringboot.demos.entity.MyUser;
 import com.wyd.satokendemospringboot.demos.entity.dto.CacheDTO;
-import com.wyd.satokendemospringboot.demos.entity.dto.MyUserDTO;
 import com.wyd.satokendemospringboot.demos.service.CacheTestService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -46,10 +44,13 @@ public class CacheTestServiceImpl implements CacheTestService {
     /*
     * 使缓存失效
     * */
-    @CacheEvict(cacheNames = "user_", key = "#userId", condition = "#userId == 1")
+    @CacheEvict(cacheNames = "user_", key = "#userId", condition = "#userId == 1L")
     @Override
     public String removeUserCaffineCache(Long userId) {
-        return "单纯地让 userId==1 的缓存失效了...";
+        if (userId==1L){
+            return "单纯地让 userId==1 的缓存失效了...";
+        }else return "无事发生";
+
     }
 
     /*

@@ -10,21 +10,8 @@ public class TempTest {
         /* String x = "column=\"case_id\"";
         System.out.println(x.substring(8, x.length()-1));*/
         /*testStreamCount();*/
-/*        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            System.out.println("court_" + random.nextInt(100));
-            // System.out.println(UUID.randomUUID().toString().substring(0, 5));
-        }*/
-/*        for (int i = 0; i < 100; i++) {
-            Random random = new Random();
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(2023, random.nextInt(5) , random.nextInt(28) , 0, 0, 0);
-            System.out.println(calendar.getTime());
-        }*/
-        Map<String, String> map = new HashMap<>();
-        System.out.println(map.get("123"));
-        map.put("123", "234");
-        System.out.println(map.get("123"));
+        Long l = 1L;
+        System.out.println(l==1L);
     }
 
     private static void testStreamCount() {
