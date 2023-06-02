@@ -10,8 +10,8 @@ public class TempTest {
         /* String x = "column=\"case_id\"";
         System.out.println(x.substring(8, x.length()-1));*/
         /*testStreamCount();*/
-        Long l = 1L;
-        System.out.println(l==1L);
+
+        System.out.println(String.format("%0" + 3 + "d", 12) );
     }
 
     private static void testStreamCount() {
