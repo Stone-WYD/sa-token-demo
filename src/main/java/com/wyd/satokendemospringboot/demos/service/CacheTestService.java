@@ -8,6 +8,8 @@ public interface CacheTestService {
 
     CacheDTO queryUserUseCaffineCache(Long userId);
 
+    CacheDTO testQueryAfterDeleteCache(Long userId);
+
     CacheDTO udpateUserUseCaffineCache(Long userId);
 
     String removeUserCaffineCache(Long userId);

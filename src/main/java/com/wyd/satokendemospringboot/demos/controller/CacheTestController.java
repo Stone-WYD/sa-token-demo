@@ -28,6 +28,15 @@ public class CacheTestController {
         return MyResultUtil.getTrueResult(result);
     }
 
+    @GetMapping("/caffine/getAfterDelete")
+    @ApiOperation(value = "获取对象，获取前删除缓存")
+    MyResult<CacheDTO> testQueryAfterDeleteCache(Long userId){
+        MyResult<CacheDTO> result = new MyResult<>();
+        CacheDTO data = cacheTestService.testQueryAfterDeleteCache(userId);
+        result.setData(data);
+        return MyResultUtil.getTrueResult(result);
+    }
+
     @GetMapping("/caffine/update")
     @ApiOperation(value = "caffine缓存更新接口")
     MyResult<CacheDTO> udpateUserUseCaffineCache(Long userId){

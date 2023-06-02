@@ -5,6 +5,7 @@ import com.wyd.satokendemospringboot.demos.dao.MyUserDao;
 import com.wyd.satokendemospringboot.demos.entity.MyUser;
 import com.wyd.satokendemospringboot.demos.entity.dto.CacheDTO;
 import com.wyd.satokendemospringboot.demos.service.CacheTestService;
+import com.wyd.satokendemospringboot.demos.util.SpringUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,6 +30,14 @@ public class CacheTestServiceImpl implements CacheTestService {
     public CacheDTO queryUserUseCaffineCache(Long userId) {
         MyUser myUser = myUserDao.queryById(userId);
         return new CacheDTO(myUser.getUserName(), myUser.getUserPassword(), new Date());
+    }
+
+    @Override
+    @CacheEvict(cacheNames = "user_", key = "#userId")
+    public CacheDTO testQueryAfterDeleteCache(Long userId) {
+        CacheDTO cacheDTO = SpringUtil.getBean(CacheTestService.class).queryUserUseCaffineCache(userId);
+        cacheDTO.setName( "删除缓存后再次加入的名字：" + cacheDTO.getName() );
+        return cacheDTO;
     }
 
     /*
@@ -56,8 +65,8 @@ public class CacheTestServiceImpl implements CacheTestService {
     /*
     * 多个缓存注解的组合使用
     * */
-    @Caching(put = @CachePut(cacheNames = "user_", key = "1"),
-            evict = @CacheEvict(cacheNames = "user_", key = "2"))
+    @Caching(put = @CachePut(cacheNames = "user_", key = "'1'"),
+            evict = @CacheEvict(cacheNames = "user_", key = "'2'"))
     @Override
     public CacheDTO cachingTest() {
         return this.queryUserUseCaffineCache(1L);
