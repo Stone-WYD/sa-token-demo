@@ -9,6 +9,13 @@ spring:
     password: njxnet1234
     driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+  # 模板引擎配置
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
 
 mybatis:
   mapper-locations: classpath:mapper/*xml
