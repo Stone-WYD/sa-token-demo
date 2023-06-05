@@ -29,7 +29,7 @@ public class CacheTestController {
     }
 
     @GetMapping("/caffine/getAfterDelete")
-    @ApiOperation(value = "获取对象，获取前删除缓存")
+    @ApiOperation(value = "caffine: 获取对象，获取前删除缓存")
     MyResult<CacheDTO> testQueryAfterDeleteCache(Long userId){
         MyResult<CacheDTO> result = new MyResult<>();
         CacheDTO data = cacheTestService.testQueryAfterDeleteCache(userId);
@@ -38,7 +38,7 @@ public class CacheTestController {
     }
 
     @GetMapping("/caffine/update")
-    @ApiOperation(value = "caffine缓存更新接口")
+    @ApiOperation(value = "caffine: 缓存更新接口")
     MyResult<CacheDTO> udpateUserUseCaffineCache(Long userId){
         MyResult<CacheDTO> result = new MyResult<>();
         CacheDTO cacheDTO = cacheTestService.udpateUserUseCaffineCache(userId);
@@ -47,7 +47,7 @@ public class CacheTestController {
     }
 
     @GetMapping("/caffine/remove")
-    @ApiOperation(value = "caffine缓存删除接口")
+    @ApiOperation(value = "caffine: 缓存删除接口")
     MyResult<String> removeUserCaffineCache(Long userId){
         MyResult<String> result = new MyResult<>();
         String data = cacheTestService.removeUserCaffineCache(userId);
@@ -56,7 +56,7 @@ public class CacheTestController {
     }
 
     @GetMapping("/caffine/updateAndRemove")
-    @ApiOperation(value = "caffine缓存更新和删除接口")
+    @ApiOperation(value = "caffine: 缓存更新和删除接口")
     MyResult cachingTest(){
         MyResult<String> result = new MyResult<>();
         cacheTestService.cachingTest();
@@ -65,5 +65,9 @@ public class CacheTestController {
     }
 
     // 本地缓存 Guava 相关接口
-
+    @GetMapping("/guava/get")
+    @ApiOperation(value = "guava: 缓存获取数据")
+    MyResult queryDataByGuava(String key){
+        return cacheTestService.queryDataByGuava(key);
+    }
 }

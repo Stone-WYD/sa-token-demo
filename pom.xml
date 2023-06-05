@@ -79,11 +79,18 @@
             <version>2.0.0.RELEASE</version>
         </dependency>
 
-        <!-- caffeine 缓存使用 -->
+        <!-- caffeine 缓存使用，spring默认使用的缓存框架 -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
+        <!-- guava 缓存使用 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+
         <!-- Spring中 @Cacheable 相关注解 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

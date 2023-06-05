@@ -18,4 +18,6 @@ public interface CacheTestService {
 
     MyResult<MyUser> queryUserWydUseGuavaCache();
 
+    MyResult<String> queryDataByGuava(String key);
+
 }
