@@ -2,6 +2,7 @@ package com.wyd.satokendemospringboot;
 
 import com.wyd.satokendemospringboot.demos.entity.MyUser;
 import com.wyd.satokendemospringboot.demos.service.MyUserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,7 +17,7 @@ class SaTokenDemoSpringbootApplicationTests {
     @Test
     void contextLoads() {
         MyUser myUser = myUserService.queryById(4L);
-        System.out.println(myUser==null);
+        Assertions.assertEquals(null, myUser);
     }
 
 }
