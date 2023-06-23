@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 @Slf4j
-public class IEnumJsonDeserializer<T extends IEnum<?>> extends JsonDeserializer<IEnum<?>> {
+public class IEnumJsonDeserializer<T extends IEnum> extends JsonDeserializer<IEnum> {
 
     @Override
-    public IEnum<?> deserialize(JsonParser parser, DeserializationContext ctxt)
+    public IEnum deserialize(JsonParser parser, DeserializationContext ctxt)
             throws IOException {
 
         // 将传来的 string 字符串反序列化成枚举类

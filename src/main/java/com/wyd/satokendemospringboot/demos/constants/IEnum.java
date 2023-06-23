@@ -1,6 +1,9 @@
 package com.wyd.satokendemospringboot.demos.constants;
 
-public interface IEnum<T> {
+import io.swagger.models.auth.In;
 
-    T getValue();
+public interface IEnum {
+
+    Integer getValue();
+
 }
