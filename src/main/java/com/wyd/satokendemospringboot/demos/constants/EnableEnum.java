@@ -1,13 +1,13 @@
-package com.wyd.satokendemospringboot.demos.myenum;
+package com.wyd.satokendemospringboot.demos.constants;
 
 public enum EnableEnum {
 
     ENABLE_ENUM(1, "可用"),
     BAN_ENUM(0, "禁用");
 
-    private Integer code;
+    private final Integer code;
 
-    private String name;
+    private final String name;
 
     EnableEnum(Integer code, String name) {
         this.code = code;

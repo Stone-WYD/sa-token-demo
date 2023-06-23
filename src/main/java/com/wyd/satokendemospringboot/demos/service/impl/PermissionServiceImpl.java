@@ -8,15 +8,13 @@ import com.wyd.satokendemospringboot.demos.entity.Permission;
 import com.wyd.satokendemospringboot.demos.dao.PermissionDao;
 import com.wyd.satokendemospringboot.demos.entity.Role;
 import com.wyd.satokendemospringboot.demos.entity.po.PermissionPo;
-import com.wyd.satokendemospringboot.demos.myenum.OpsEnum;
+import com.wyd.satokendemospringboot.demos.constants.OpsEnum;
 import com.wyd.satokendemospringboot.demos.service.PermissionService;
-import com.wyd.satokendemospringboot.demos.util.Constants;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.util.CollectionUtils;
-import org.springframework.validation.ValidationUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import com.wyd.satokendemospringboot.demos.common.result.MyResultUtil;
 import com.wyd.satokendemospringboot.demos.dao.MyUserDao;
 import com.wyd.satokendemospringboot.demos.entity.MyUser;
 import com.wyd.satokendemospringboot.demos.entity.query.UserQuery;
-import com.wyd.satokendemospringboot.demos.myenum.EnableEnum;
+import com.wyd.satokendemospringboot.demos.constants.EnableEnum;
 import com.wyd.satokendemospringboot.demos.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
         if (CollectionUtils.isEmpty(myUsers)) return MyResultUtil.getBussinessErrorResult("用户不存在！");
         MyUser myUser = myUsers.get(0);
         // 封禁
-        if (myUser.getEnable()== EnableEnum.BAN_ENUM.getCode()){
+        if (EnableEnum.BAN_ENUM.getCode().equals(myUser.getEnable())){
             return MyResultUtil.getBussinessErrorResult("您的账号已被封禁，请联系管理员！");
         }
 
