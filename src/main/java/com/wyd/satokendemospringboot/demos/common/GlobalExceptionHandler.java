@@ -3,6 +3,7 @@ package com.wyd.satokendemospringboot.demos.common;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
+import com.wyd.satokendemospringboot.demos.common.ex.BaseException;
 import com.wyd.satokendemospringboot.demos.common.ex.DBException;
 import com.wyd.satokendemospringboot.demos.common.result.MyResult;
 import com.wyd.satokendemospringboot.demos.common.result.MyResultStatusCode;
@@ -103,6 +104,19 @@ public class GlobalExceptionHandler {
         return myResult;
     }
 
+    // 处理一些自定义异常
+    @ExceptionHandler(BaseException.class)
+    public MyResult onMyException(BaseException be){
+        // 打印异常
+        be.printStackTrace();
+
+        // 返回结果
+        MyResult myResult = new MyResult();
+        myResult.setCode(MyResultStatusCode.BUSSINESS_ERROR.getCode());
+        myResult.setMessage(be.getMessage());
+        return myResult;
+    }
+
     // 加入一个通用的全局异常处理
     @ExceptionHandler(Exception.class)
     public MyResult onException(Exception e){
@@ -111,8 +125,6 @@ public class GlobalExceptionHandler {
 
         // 将异常封装成result返回给前端
         MyResult myResult = new MyResult();
-        myResult.setCode(MyResultStatusCode.ERROR.getCode());
-        myResult.setMessage(MyResultStatusCode.ERROR.getName());
         return MyResultUtil.getDefaultFalseResult(myResult);
     }
 }

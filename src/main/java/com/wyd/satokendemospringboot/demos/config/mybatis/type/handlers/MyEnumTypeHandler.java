@@ -35,7 +35,7 @@ public class MyEnumTypeHandler<E extends Enum> extends BaseTypeHandler<E> {
     public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
         // 将枚举类中的字典值（value）sql语句中
         IEnum iEnum = (IEnum) parameter;
-        Integer ordinal = iEnum.getValue();
+        Integer ordinal = iEnum.getCode();
         ps.setInt(i, ordinal);
     }
 
@@ -57,7 +57,7 @@ public class MyEnumTypeHandler<E extends Enum> extends BaseTypeHandler<E> {
     private E toOrdinalEnum(int ordinal) {
         for (E e : this.enums) {
             IEnum ie = (IEnum) e;
-            if (ie.getValue() == ordinal) return e;
+            if (ie.getCode() == ordinal) return e;
         }
         // 如果没找到字典值（value）对应的枚举类，则报错
         throw new IllegalArgumentException("Cannot convert " + ordinal + " to " + this.type.getSimpleName() + " by ordinal value.");

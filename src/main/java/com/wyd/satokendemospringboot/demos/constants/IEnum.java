@@ -4,6 +4,8 @@ import io.swagger.models.auth.In;
 
 public interface IEnum {
 
-    Integer getValue();
+    Integer getCode();
+
+    String getValue();
 
 }

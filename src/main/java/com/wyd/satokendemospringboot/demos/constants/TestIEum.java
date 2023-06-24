@@ -10,24 +10,28 @@ public enum TestIEum implements IEnum {
     YXY(2, "叶絮依")
     ;
 
-    private final Integer value;
+    private final Integer code;
     private final String desc;
 
     TestIEum(Integer value, String desc) {
-        this.value = value;
+        this.code = value;
         this.desc = desc;
     }
 
     @Override
-    public Integer getValue() {
-        return value;
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getValue() {
+        return desc;
     }
 
 
     @Override
     public String toString() {
         return "TestIEum{" +
-                "value=" + value +
+                "code=" + code +
                 ", desc='" + desc + '\'' +
                 '}';
     }
