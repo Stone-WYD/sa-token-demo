@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.30.43:3306/sa_token_test?characterEncoding=utf8&usSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
-    username: ssfw
-    password: njxnet1234
+    url: jdbc:mysql://localhost:3306/sa_token_test?characterEncoding=utf8&usSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   # 模板引擎配置
@@ -20,6 +20,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*xml
   type-aliases-package: com.wyd.satokendemospringboot.demos.entity
+mybatis-plus:
+  type-handlers-package: com.wyd.satokendemospringboot.demos.config.mybatis.type.handlers
 
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############

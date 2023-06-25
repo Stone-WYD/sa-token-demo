@@ -1,4 +1,4 @@
-package com.wyd.satokendemospringboot.demos.myenum;
+package com.wyd.satokendemospringboot.demos.constants;
 
 public enum OpsEnum {
 
@@ -8,9 +8,9 @@ public enum OpsEnum {
     DELETE("d", "delete"),
     ALL("*", "*");
 
-    private String code;
+    private final String code;
 
-    private String name;
+    private final String name;
 
     OpsEnum(String code, String name) {
         this.code = code;
