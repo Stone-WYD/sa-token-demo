@@ -1,4 +1,4 @@
-package com.wyd;
+package com.wyd.check;
 
 import java.util.*;
 
